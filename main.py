@@ -19,9 +19,10 @@ def read_data(filename):
     return X, Y
 
 # Список файлов, из которых нужно читать данные
-filenames = ['scope_1_1.csv', 'scope_2_1.csv', 'scope_3_1.csv', 'scope_4_1.csv']
-titles = ['Full signal', 'Strobe pulse #1', 'Strobe pulse #2', 'Strobe pulse #3']  # Заголовки для графиков
-
+# filenames = ['scope_1_1.csv', 'scope_2_1.csv', 'scope_3_1.csv', 'scope_4_1.csv']
+# titles = ['Full signal', 'Strobe pulse #1', 'Strobe pulse #2', 'Strobe pulse #3']  # Заголовки для графиков
+filenames = ['S11.csv']
+titles = ['Full signal', 'Strobe pulse #1', 'Strobe pulse #2', 'Strobe pulse #3']
 # Создание сетки для графиков 2x2
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 8), constrained_layout=True)
 
