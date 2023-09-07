@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import ScalarFormatter
 
+# Названия файлов
+
+filename1 = '0.5m_eh'   # Первый файл
+filename2 = '1.5m_eh'     # Второй файл
+
 # Функция для чтения данных из CSV файла и извлечения числовых данных
 def read_data(filename):
     data = pd.read_csv(filename, skiprows=7, skipfooter=1, engine='python')
@@ -19,8 +24,8 @@ def read_data(filename):
     return freq, s11_mag, s11_deg, s12_mag, s12_deg, s21_mag, s21_deg, s22_mag, s22_deg
 
 # Чтение данных из двух CSV файлов
-freq1, s11_mag1, s11_deg1, s12_mag1, s12_deg1, s21_mag1, s21_deg1, s22_mag1, s22_deg1 = read_data('S11.csv')  # Первый файл
-freq2, s11_mag2, s11_deg2, s12_mag2, s12_deg2, s21_mag2, s21_deg2, s22_mag2, s22_deg2 = read_data('S21 EH(2).csv') # Второй файл
+freq1, s11_mag1, s11_deg1, s12_mag1, s12_deg1, s21_mag1, s21_deg1, s22_mag1, s22_deg1 = read_data(f'{filename1}.csv')  # Первый файл
+freq2, s11_mag2, s11_deg2, s12_mag2, s12_deg2, s21_mag2, s21_deg2, s22_mag2, s22_deg2 = read_data(f'{filename2}.csv') # Второй файл
 
 # Частота, на которой нужно провести вертикальную линию (в Гц)
 vertical_line_freq = 13.56e6
@@ -29,17 +34,16 @@ vertical_line_freq = 13.56e6
 fig_mag, axes_mag = plt.subplots(nrows=2, ncols=2, figsize=(12, 7))
 
 # Построение графиков для MAG в dB на линейной шкале из первого файла
-axes_mag[0, 0].plot(freq1, 20 * np.log10(s11_mag1), label='S11(MAG) (dB) - Loop')
-axes_mag[0, 1].plot(freq1, 20 * np.log10(s12_mag1), label='S12(MAG) (dB) - Loop')
-axes_mag[1, 0].plot(freq1, 20 * np.log10(s21_mag1), label='S21(MAG) (dB) - Loop')
-axes_mag[1, 1].plot(freq1, 20 * np.log10(s22_mag1), label='S22(MAG) (dB) - Loop')
+axes_mag[0, 0].plot(freq1, 20 * np.log10(s11_mag1), label=f'S11(MAG) (dB) -  {filename1}')
+axes_mag[0, 1].plot(freq1, 20 * np.log10(s12_mag1), label=f'S12(MAG) (dB) -  {filename1}')
+axes_mag[1, 0].plot(freq1, 20 * np.log10(s21_mag1), label=f'S21(MAG) (dB) - {filename1}')
+axes_mag[1, 1].plot(freq1, 20 * np.log10(s22_mag1), label=f'S22(MAG) (dB) - {filename1}')
 
 # Построение графиков для MAG в dB на линейной шкале из второго файла
-axes_mag[0, 0].plot(freq2, 20 * np.log10(s11_mag2), label='S11(MAG) (dB) - EH antenna', linestyle='--')
-axes_mag[0, 1].plot(freq2, 20 * np.log10(s12_mag2), label='S12(MAG) (dB) - EH antenna', linestyle='--')
-axes_mag[1, 0].plot(freq2, 20 * np.log10(s21_mag2), label='S21(MAG) (dB) - EH antenna', linestyle='--')
-axes_mag[1, 1].plot(freq2, 20 * np.log10(s22_mag2), label='S22(MAG) (dB) - EH antenna', linestyle='--')
-
+axes_mag[0, 0].plot(freq2, 20 * np.log10(s11_mag2), label=f'S11(MAG) (dB) - {filename2}', linestyle='--')
+axes_mag[0, 1].plot(freq2, 20 * np.log10(s12_mag2), label=f'S12(MAG) (dB) - {filename2}', linestyle='--')
+axes_mag[1, 0].plot(freq2, 20 * np.log10(s21_mag2), label=f'S21(MAG) (dB) - {filename2}', linestyle='--')
+axes_mag[1, 1].plot(freq2, 20 * np.log10(s22_mag2), label=f'S22(MAG) (dB) - {filename2}', linestyle='--')
 # Добавление вертикальной линии на каждом графике MAG
 for ax in axes_mag.flat:
     ax.axvline(x=vertical_line_freq, color='r', linestyle='--', label='13.56 MHz', linewidth=0.9)
@@ -77,16 +81,16 @@ plt.tight_layout()
 fig_deg, axes_deg = plt.subplots(nrows=2, ncols=2, figsize=(12, 7))
 
 # Построение графиков для DEG из первого файла
-axes_deg[0, 0].plot(freq1, s11_deg1, label='S11(DEG) - Loop')
-axes_deg[0, 1].plot(freq1, s12_deg1, label='S12(DEG) - Loop')
-axes_deg[1, 0].plot(freq1, s21_deg1, label='S21(DEG) - Loop')
-axes_deg[1, 1].plot(freq1, s22_deg1, label='S22(DEG) - Loop')
+axes_deg[0, 0].plot(freq1, s11_deg1, label=f'S11(DEG) - {filename1}')
+axes_deg[0, 1].plot(freq1, s12_deg1, label=f'S12(DEG) - {filename1}')
+axes_deg[1, 0].plot(freq1, s21_deg1, label=f'S21(DEG) - {filename1}')
+axes_deg[1, 1].plot(freq1, s22_deg1, label=f'S22(DEG) - {filename1}')
 
 # Построение графиков для DEG из второго файла
-axes_deg[0, 0].plot(freq2, s11_deg2, label='S11(DEG) - EH antenna', linestyle='--')
-axes_deg[0, 1].plot(freq2, s12_deg2, label='S12(DEG) - EH antenna', linestyle='--')
-axes_deg[1, 0].plot(freq2, s21_deg2, label='S21(DEG) - EH antenna', linestyle='--')
-axes_deg[1, 1].plot(freq2, s22_deg2, label='S22(DEG) - EH antenna', linestyle='--')
+axes_deg[0, 0].plot(freq2, s11_deg2, label=f'S11(DEG) - {filename2}', linestyle='--')
+axes_deg[0, 1].plot(freq2, s12_deg2, label=f'S12(DEG) - {filename2}', linestyle='--')
+axes_deg[1, 0].plot(freq2, s21_deg2, label=f'S21(DEG) - {filename2}', linestyle='--')
+axes_deg[1, 1].plot(freq2, s22_deg2, label=f'S22(DEG) - {filename2}', linestyle='--')
 
 # Добавление вертикальной линии на каждом графике DEG
 for ax in axes_deg.flat:

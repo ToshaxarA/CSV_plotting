@@ -19,7 +19,7 @@ def read_data(filename):
     return freq, s11_mag, s11_deg, s12_mag, s12_deg, s21_mag, s21_deg, s22_mag, s22_deg
 
 # Чтение данных из CSV файлов
-freq, s11_mag, s11_deg, s12_mag, s12_deg, s21_mag, s21_deg, s22_mag, s22_deg = read_data('S11.csv')
+freq, s11_mag, s11_deg, s12_mag, s12_deg, s21_mag, s21_deg, s22_mag, s22_deg = read_data('0.5m.csv')
 
 # Частота, на которой нужно провести вертикальную линию (в Гц)
 vertical_line_freq = 13.56e6
